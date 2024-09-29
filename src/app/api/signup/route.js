@@ -33,7 +33,8 @@ export async function POST(req) {
     if (userExistsEmail) {
       return Response.json({
         Success: false,
-        message: "Email already registered",
+        message: `Email already registered. 
+        Please try signing in.`,
       });
     }
 

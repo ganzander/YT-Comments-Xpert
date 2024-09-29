@@ -23,6 +23,7 @@ export default function Page() {
     if (!email) {
       toast.error("Please fill email.");
     } else if (email) {
+      toast.success("Sending OTP");
       axios.post("/api/sendOTP-email", { email }).then((result) => {
         if (result.data.Success === true) {
           toast.success(result.data.msg);

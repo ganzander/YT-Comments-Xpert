@@ -34,18 +34,20 @@ export default function Page() {
   }
 
   return (
-    <div className="h-screen w-full flex items-center justify-center bg-[#eee] dark:bg-black/[0.96] antialiased bg-grid-white/[0.02] relative overflow-hidden">
+    <div className="h-screen w-full flex flex-col  items-center justify-center bg-[#eee] dark:bg-black/[0.96] antialiased bg-grid-white/[0.02] relative overflow-hidden">
       <Spotlight
         className="-top-40 left-0 md:left-60 md:-top-20"
         fill="white"
       />
-      <div className="max-w-md w-full mx-auto rounded-lg md:rounded-2xl p-7 md:p-8 shadow-2xl bg-white dark:bg-black">
-        <h2 className="uppercase font-bold text-xl text-center text-neutral-800 dark:text-neutral-200">
+      <div className="w-full flex justify-center items-center mt-4  mb-20">
+        <h2 className="uppercase font-bold text-3xl md:text-5xl text-center text-neutral-800 dark:text-neutral-200">
           YT Comments Xpert
         </h2>
+      </div>
+      <div className="max-w-md w-full mx-auto rounded-lg md:rounded-2xl p-7 md:p-8 shadow-2xl bg-white dark:bg-black">
         <form className="my-8" onSubmit={handleSubmit}>
           <LabelInputContainer className="mb-4">
-            <Label htmlFor="url">Paste the YouTube URL</Label>
+            <Label htmlFor="url" className="text-center">Just paste the YouTube Video URL</Label>
             <Input
               id="url"
               name="url"
@@ -57,13 +59,15 @@ export default function Page() {
               required
             />
           </LabelInputContainer>
-          <button
-            className="relative group/btn mt-4 bg-black text-white dark:from-zinc-900 dark:to-zinc-900  block dark:bg-zinc-800 w-full dark:text-white rounded-md h-10 font-medium shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] dark:shadow-[0px_1px_0px_0px_var(--zinc-800)_inset,0px_-1px_0px_0px_var(--zinc-800)_inset]"
-            type="submit"
-          >
-            Submit &rarr;
-            <BottomGradient />
-          </button>
+          <div className="w-full flex justify-center items-center mt-4">
+            <button
+              className="relative group/btn bg-black text-white dark:from-zinc-900 dark:to-zinc-900  block dark:bg-zinc-800 w-1/2 dark:text-white rounded-md h-10 font-medium shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] dark:shadow-[0px_1px_0px_0px_var(--zinc-800)_inset,0px_-1px_0px_0px_var(--zinc-800)_inset]"
+              type="submit"
+            >
+              Submit &rarr;
+              <BottomGradient />
+            </button>
+          </div>
 
 
           <div className="bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent my-8 h-[1px] w-full" />

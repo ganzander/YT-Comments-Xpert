@@ -16,7 +16,7 @@ import jwt from "jsonwebtoken";
 export default function NavbarDemo() {
   return (
     <div className="relative w-full flex items-center justify-center">
-      <Navbar className="top-2" />
+      <Navbar className="top-0" />
     </div>
   );
 }
@@ -42,47 +42,41 @@ function Navbar({ className }) {
 
   return (
     <div
-      className={cn(
-        "fixed top-10 inset-x-0 w-screen md:max-w-[80%] mx-auto z-50",
-        className
-      )}
+      className={cn("fixed top-10 inset-x-0 w-screen mx-auto z-50", className)}
     >
       <Menu setActive={setActive}>
-        <div className="w-[45%] sm:w-[50%] flex items-center justify-center">
-          <Link href="/">
-            <MenuItem
-              setActive={setActive}
-              active={active}
-              item="YT Comments Xpert"
-            />
+        <Link href="/">
+          <MenuItem
+            setActive={setActive}
+            active={active}
+            item="YT COMMENTS XPERT"
+          />
+        </Link>
+
+        {decoded ? (
+          <MenuItem
+            setActive={setActive}
+            active={active}
+            item={`Hi, ${decoded.fname}`}
+          >
+            <div className="flex flex-col space-y-4 text-sm">
+              <HoveredLink href="/profile">
+                <MenuItemContent label="Profile" Icon={IconBrandTabler} />
+              </HoveredLink>
+              <HoveredLink href="#">
+                <MenuItemContent
+                  label="Logout"
+                  Icon={IconArrowLeft}
+                  onClick={handleLogout}
+                />
+              </HoveredLink>
+            </div>
+          </MenuItem>
+        ) : (
+          <Link href="/login">
+            <MenuItem setActive={setActive} active={active} item="Login" />
           </Link>
-        </div>
-        <div className="w-[55%] sm:w-[50%] flex justify-around items-center">
-          {decoded ? (
-            <MenuItem
-              setActive={setActive}
-              active={active}
-              item={`Hi, ${decoded.fname}`}
-            >
-              <div className="flex flex-col space-y-4 text-sm">
-                <HoveredLink href="/profile">
-                  <MenuItemContent label="Profile" Icon={IconBrandTabler} />
-                </HoveredLink>
-                <HoveredLink href="#">
-                  <MenuItemContent
-                    label="Logout"
-                    Icon={IconArrowLeft}
-                    onClick={handleLogout}
-                  />
-                </HoveredLink>
-              </div>
-            </MenuItem>
-          ) : (
-            <Link href="/login">
-              <MenuItem setActive={setActive} active={active} item="Login" />
-            </Link>
-          )}
-        </div>
+        )}
       </Menu>
     </div>
   );
@@ -90,9 +84,12 @@ function Navbar({ className }) {
 
 function MenuItemContent({ label, Icon, onClick }) {
   return (
-    <div className="flex justify-between items-center" onClick={onClick}>
+    <div
+      className="flex justify-between font-semibold items-center text-neutral-700 hover:text-black dark:text-neutral-200"
+      onClick={onClick}
+    >
       {label}
-      <Icon className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
+      <Icon className="h-5 w-5 flex-shrink-0" />
     </div>
   );
 }
