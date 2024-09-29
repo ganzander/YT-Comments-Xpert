@@ -53,18 +53,11 @@ function Navbar({ className }) {
             <MenuItem
               setActive={setActive}
               active={active}
-              item="Shree Balaji Opticals"
+              item="YT Comments Xpert"
             />
           </Link>
         </div>
         <div className="w-[55%] sm:w-[50%] flex justify-around items-center">
-          <Link href="/lens">
-            <MenuItem setActive={setActive} active={active} item="Lens" />
-          </Link>
-          <Link href="/frames">
-            <MenuItem setActive={setActive} active={active} item="Frames" />
-          </Link>
-
           {decoded ? (
             <MenuItem
               setActive={setActive}
@@ -75,20 +68,6 @@ function Navbar({ className }) {
                 <HoveredLink href="/profile">
                   <MenuItemContent label="Profile" Icon={IconBrandTabler} />
                 </HoveredLink>
-                <HoveredLink href="/cart">
-                  <MenuItemContent label="Cart" Icon={IconGardenCart} />
-                </HoveredLink>
-                <HoveredLink href="/orders">
-                  <MenuItemContent label="Order" Icon={IconTruckDelivery} />
-                </HoveredLink>
-                <HoveredLink href="/settings">
-                  <MenuItemContent label="Settings" Icon={IconSettings} />
-                </HoveredLink>
-                {decoded.isAdmin && (
-                  <HoveredLink href="/admin">
-                    <MenuItemContent label="Update" Icon={IconEditCircle} />
-                  </HoveredLink>
-                )}
                 <HoveredLink href="#">
                   <MenuItemContent
                     label="Logout"

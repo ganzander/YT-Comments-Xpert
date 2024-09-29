@@ -15,7 +15,6 @@ export default function Page() {
     fname: "",
     lname: "",
     email: "",
-    mobile: "",
     password: "",
   });
 
@@ -28,12 +27,12 @@ export default function Page() {
 
   function handleSubmit(e) {
     e.preventDefault();
-    const { fname, lname, email, mobile, password } = registerCred;
-    if (!fname || !lname || !email || !mobile || !password) {
+    const { fname, lname, email, password } = registerCred;
+    if (!fname || !lname || !email || !password) {
       toast.error("Please fill in the form completely");
     } else {
       axios
-        .post("/api/signup", { fname, lname, email, mobile, password })
+        .post("/api/signup", { fname, lname, email, password })
         .then((result) => {
           if (result.data.Success === true) {
             toast.success(result.data.message);
@@ -46,7 +45,6 @@ export default function Page() {
         fname: "",
         lname: "",
         email: "",
-        mobile: "",
         password: "",
       });
     }
@@ -115,19 +113,6 @@ export default function Page() {
               id="password"
               placeholder="********"
               type="password"
-            />
-          </LabelInputContainer>
-          <LabelInputContainer className="mb-4">
-            <Label htmlFor="mobile">Mobile Number</Label>
-            <Input
-              name="mobile"
-              autoComplete="off"
-              required
-              value={registerCred.mobile}
-              onChange={handleChange}
-              id="mobile"
-              placeholder="Mobile"
-              type="tel"
             />
           </LabelInputContainer>
 

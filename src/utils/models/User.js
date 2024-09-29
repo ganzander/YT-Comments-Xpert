@@ -21,34 +21,13 @@ const UserSchema = new mongoose.Schema(
         }
       },
     },
-    cart: {
-      type: Array,
-      default: [],
-    },
-    orders: {
-      type: Array,
-      default: [],
-    },
     password: {
       type: String,
       required: true,
     },
-    isAdmin: {
-      type: Boolean,
-      default: false,
-    },
-    isVerifiedPhone: {
-      type: Boolean,
-      default: false,
-    },
     isVerifiedEmail: {
       type: Boolean,
       default: false,
-    },
-    phone: {
-      type: String,
-      unique: true,
-      required: true,
     },
     otp: {
       type: Number,

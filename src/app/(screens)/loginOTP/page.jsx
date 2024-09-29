@@ -12,7 +12,6 @@ export default function Page() {
   const router = useRouter();
   const [loginCred, setLoginCred] = useState({
     email: "",
-    mobile: "",
   });
   const [otp, setOTP] = useState("");
   const [loginViaOTP, setLoginViaOTP] = useState(true);
@@ -20,21 +19,9 @@ export default function Page() {
 
   function handleSubmit(e) {
     e.preventDefault();
-    const { email, mobile } = loginCred;
-    if (email && mobile) {
-      toast.error("Please fill in only one field.");
-    } else if (!email && !mobile) {
-      toast.error("Please fill in a field.");
-    } else if (mobile) {
-      axios.post("/api/sendOTP-mobile", { mobile }).then((result) => {
-        if (result.data.Success === true) {
-          toast.success(result.data.msg);
-          setLoginViaOTP(false);
-          setEnterOTP(true);
-        } else {
-          toast.error(result.data.msg);
-        }
-      });
+    const { email } = loginCred;
+    if (!email) {
+      toast.error("Please fill email.");
     } else if (email) {
       axios.post("/api/sendOTP-email", { email }).then((result) => {
         if (result.data.Success === true) {
@@ -61,24 +48,11 @@ export default function Page() {
 
   function handleSubmitOTP(e) {
     e.preventDefault();
-    const { email, mobile } = loginCred;
+    const { email } = loginCred;
     if (!otp) {
       toast.error("Please enter the OTP");
     } else if (email) {
       axios.post("/api/verifyOTP-email", { email, otp }).then((result) => {
-        if (result.data.Success === true) {
-          toast.success(result.data.message);
-          localStorage.setItem(
-            "AuthToken",
-            JSON.stringify(result.data.AuthToken)
-          );
-          router.push("/");
-        } else {
-          toast.error(result.data.message);
-        }
-      });
-    } else if (mobile) {
-      axios.post("/api/verifyOTP-mobile", { mobile, otp }).then((result) => {
         if (result.data.Success === true) {
           toast.success(result.data.message);
           localStorage.setItem(
@@ -116,21 +90,6 @@ export default function Page() {
                 type="email"
                 name="email"
                 autoComplete="off"
-              />
-            </LabelInputContainer>
-            <div className="mb-4 text-black font-semibold dark:text-white w-full text-center">
-              OR
-            </div>
-            <LabelInputContainer className="mb-4">
-              <Label htmlFor="mobile">Mobile Number</Label>
-              <Input
-                name="mobile"
-                autoComplete="off"
-                value={loginCred.mobile}
-                onChange={handleChange}
-                id="mobile"
-                placeholder="Mobile"
-                type="tel"
               />
             </LabelInputContainer>
 
