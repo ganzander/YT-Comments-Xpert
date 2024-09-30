@@ -23,13 +23,28 @@ export default function Page() {
     } else {
       axios.post("/api/yt-details", { url }).then((result) => {
         if (result.data.Success === true) {
-          console.log(result.data)
+          console.log(result.data);
+          localStorage.setItem(
+            "videoDetails",
+            JSON.stringify(result.data.videoDetails)
+          );
+          localStorage.setItem(
+            "comments",
+            JSON.stringify(result.data.comments)
+          );
+          localStorage.setItem(
+            "negativeComments",
+            JSON.stringify(result.data.negativeComments)
+          );
+          localStorage.setItem(
+            "positiveComments",
+            JSON.stringify(result.data.positiveComments)
+          );
+          router.push("/video-details");
         } else {
           toast.error(result.data.msg);
         }
       });
-
-      setUrl("");
     }
   }
 
@@ -47,7 +62,9 @@ export default function Page() {
       <div className="max-w-md w-full mx-auto rounded-lg md:rounded-2xl p-7 md:p-8 shadow-2xl bg-white dark:bg-black">
         <form className="my-8" onSubmit={handleSubmit}>
           <LabelInputContainer className="mb-4">
-            <Label htmlFor="url" className="text-center">Just paste the YouTube Video URL</Label>
+            <Label htmlFor="url" className="text-center">
+              Just paste the YouTube Video URL
+            </Label>
             <Input
               id="url"
               name="url"
@@ -69,13 +86,10 @@ export default function Page() {
             </button>
           </div>
 
-
           <div className="bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent my-8 h-[1px] w-full" />
         </form>
-
-
       </div>
-    </div >
+    </div>
   );
 }
 
