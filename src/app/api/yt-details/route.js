@@ -1,6 +1,46 @@
 const axios = require("axios");
-const Sentiment = require("sentiment");
-const sentiment = new Sentiment();
+const natural = require("natural");
+const sentiment = require("sentiment");
+const sentimentAnalyzer = new sentiment();
+const tokenizer = new natural.WordTokenizer();
+
+const isDemanding = (comment) => {
+  const demandingWords = ["want", "need", "please", "request", "expect"];
+  const tokens = tokenizer.tokenize(comment.toLowerCase());
+  return demandingWords.some((word) => tokens.includes(word));
+};
+
+const isAbusive = (comment) => {
+  const abusiveWords = ["hate", "stupid", "idiot", "dumb", "nonsense"];
+  const tokens = tokenizer.tokenize(comment.toLowerCase());
+  return abusiveWords.some((word) => tokens.includes(word));
+};
+
+function categorizeComments(comments) {
+  let categorizedComments = {
+    positiveComments: [],
+    negativeComments: [],
+    abusiveComments: [],
+    demandingComments: [],
+  };
+
+  comments.forEach((comment) => {
+    const analysis = sentimentAnalyzer.analyze(comment);
+    const score = analysis.score;
+
+    if (isAbusive(comment)) {
+      categorizedComments.abusiveComments.push(comment);
+    } else if (isDemanding(comment)) {
+      categorizedComments.demandingComments.push(comment);
+    } else if (score > 2) {
+      categorizedComments.positiveComments.push(comment);
+    } else if (score < -2) {
+      categorizedComments.negativeComments.push(comment);
+    }
+  });
+
+  return categorizedComments;
+}
 
 function extractVideoId(url) {
   const regex =
@@ -16,7 +56,6 @@ async function getVideoDetails(videoId, API_KEY) {
 
   const videoDetails = {
     title: videoData.snippet.title.split("|")[0].trim(),
-    description: videoData.snippet.description,
     thumbnail: videoData.snippet.thumbnails.standard.url,
     channelTitle: videoData.snippet.channelTitle,
     viewCount: videoData.statistics.viewCount,
@@ -49,21 +88,6 @@ async function getComments(videoId, API_KEY) {
   return comments;
 }
 
-function categorizeComments(comments) {
-  let negativeComments = [];
-  let positiveComments = [];
-  comments.forEach((comment) => {
-    const analysis = sentiment.analyze(comment);
-    const score = analysis.score;
-    if (score < -2) {
-      negativeComments.push({ comment, score }); // Negative Comments
-    } else if (score > 2) {
-      positiveComments.push({ comment, score }); // Positive Comments
-    }
-  });
-  return { negativeComments, positiveComments };
-}
-
 export async function POST(req) {
   const { url } = await req.json();
   const videoId = extractVideoId(url);
@@ -75,16 +99,24 @@ export async function POST(req) {
 
     // Fetch Video Comments
     const comments = await getComments(videoId, API_KEY);
+    console.log(comments.length);
 
     // Fetch Sentiment Analysis
-    const { negativeComments, positiveComments } = categorizeComments(comments);
+    const categorizedComments = categorizeComments(comments);
+    const {
+      positiveComments,
+      negativeComments,
+      abusiveComments,
+      demandingComments,
+    } = categorizedComments;
 
     return Response.json({
       Success: true,
       videoDetails,
-      comments,
-      negativeComments,
       positiveComments,
+      negativeComments,
+      abusiveComments,
+      demandingComments,
     });
   } catch (error) {
     console.error("Error fetching video details:", error);

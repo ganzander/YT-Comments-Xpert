@@ -5,11 +5,14 @@ import { cn } from "@/lib/utils";
 import { FcLike } from "react-icons/fc";
 import { IoEyeSharp } from "react-icons/io5";
 import { AiOutlineComment } from "react-icons/ai";
+import { useRouter } from "next/navigation";
 
 export default function VideoDetails() {
   const [videoData, setVideoData] = useState(null);
-  const [negativeComments, setNegativeCommentsData] = useState(null);
+  const [negativeCommentsData, setNegativeCommentsData] = useState(null);
   const [positiveCommentsData, setPositiveCommentsData] = useState(null);
+  const [abusiveCommentsData, setAbusiveCommentsData] = useState(null);
+  const [demandingCommentsData, setDemandingCommentsData] = useState(null);
 
   useEffect(() => {
     const videoDetails = JSON.parse(localStorage.getItem("videoDetails"));
@@ -30,9 +33,19 @@ export default function VideoDetails() {
     if (positiveComments) {
       setPositiveCommentsData(positiveComments);
     }
-  }, []);
 
-  console.log(positiveCommentsData);
+    const abusiveComments = JSON.parse(localStorage.getItem("abusiveComments"));
+    if (abusiveComments) {
+      setAbusiveCommentsData(abusiveComments);
+    }
+
+    const demandingComments = JSON.parse(
+      localStorage.getItem("demandingComments")
+    );
+    if (demandingComments) {
+      setDemandingCommentsData(demandingComments);
+    }
+  }, []);
 
   if (!videoData) {
     return (
@@ -52,7 +65,7 @@ export default function VideoDetails() {
   }
 
   return (
-    <div className="min-h-screen w-full flex flex-col  items-center justify-center bg-[#eee] dark:bg-black/[0.96] antialiased bg-grid-white/[0.02] relative overflow-hidden">
+    <div className="min-h-screen w-full flex flex-col  items-center justify-center pb-10 bg-[#eee] dark:bg-black/[0.96] antialiased bg-grid-white/[0.02] relative overflow-hidden">
       <Spotlight
         className="-top-40 left-0 md:left-60 md:-top-20"
         fill="white"
@@ -102,8 +115,46 @@ export default function VideoDetails() {
               </div>
             </div>
           </div>
+          <div className="flex md:flex-row flex-col gap-5 md:gap-0 w-full items-center text-center justify-evenly mt-20 mx-auto">
+            <FlexMessages
+              messages={negativeCommentsData}
+              heading="View Negative Comments"
+              redirectRoute="negativeComments"
+            />
+            <FlexMessages
+              messages={positiveCommentsData}
+              heading="View Positive Comments"
+              redirectRoute="positiveComments"
+            />
+          </div>
+          <div className="flex md:flex-row flex-col gap-5 md:gap-0 w-full items-center text-center justify-evenly mt-5">
+            <FlexMessages
+              messages={abusiveCommentsData}
+              heading="View Abusive Comments"
+              redirectRoute="abusiveComments"
+            />
+            <FlexMessages
+              messages={demandingCommentsData}
+              heading="View Demanding Comments"
+              redirectRoute="demandingComments"
+            />
+          </div>
         </div>
       )}
+    </div>
+  );
+}
+
+function FlexMessages({ redirectRoute, heading, className }) {
+  const router = useRouter();
+  return (
+    <div className={"w-full shadow-lg" + className}>
+      <button
+        onClick={() => router.push(`/${redirectRoute}`)}
+        className=" tracking-tighter text-sm sm:text-lg md:text-xl lg:text-2xl w-[60%] p-5 bg-slate-600 text-white"
+      >
+        {heading}
+      </button>
     </div>
   );
 }
