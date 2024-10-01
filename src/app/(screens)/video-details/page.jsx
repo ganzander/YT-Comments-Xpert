@@ -9,41 +9,11 @@ import { useRouter } from "next/navigation";
 
 export default function VideoDetails() {
   const [videoData, setVideoData] = useState(null);
-  const [negativeCommentsData, setNegativeCommentsData] = useState(null);
-  const [positiveCommentsData, setPositiveCommentsData] = useState(null);
-  const [abusiveCommentsData, setAbusiveCommentsData] = useState(null);
-  const [demandingCommentsData, setDemandingCommentsData] = useState(null);
 
   useEffect(() => {
     const videoDetails = JSON.parse(localStorage.getItem("videoDetails"));
     if (videoDetails) {
       setVideoData(videoDetails);
-    }
-
-    const negativeComments = JSON.parse(
-      localStorage.getItem("negativeComments")
-    );
-    if (negativeComments) {
-      setNegativeCommentsData(negativeComments);
-    }
-
-    const positiveComments = JSON.parse(
-      localStorage.getItem("positiveComments")
-    );
-    if (positiveComments) {
-      setPositiveCommentsData(positiveComments);
-    }
-
-    const abusiveComments = JSON.parse(localStorage.getItem("abusiveComments"));
-    if (abusiveComments) {
-      setAbusiveCommentsData(abusiveComments);
-    }
-
-    const demandingComments = JSON.parse(
-      localStorage.getItem("demandingComments")
-    );
-    if (demandingComments) {
-      setDemandingCommentsData(demandingComments);
     }
   }, []);
 
@@ -55,7 +25,7 @@ export default function VideoDetails() {
           fill="white"
         />
 
-        <div className="w-full flex justify-center items-center mt-4  mb-20">
+        <div className="w-full flex justify-center items-center mt-4 mb-20">
           <h2 className="uppercase font-bold text-3xl md:text-5xl text-center text-neutral-800 dark:text-neutral-200">
             Loading ...
           </h2>
@@ -117,24 +87,20 @@ export default function VideoDetails() {
           </div>
           <div className="flex md:flex-row flex-col gap-5 md:gap-0 w-full items-center text-center justify-evenly mt-20 mx-auto">
             <FlexMessages
-              messages={negativeCommentsData}
               heading="View Negative Comments"
               redirectRoute="negativeComments"
             />
             <FlexMessages
-              messages={positiveCommentsData}
               heading="View Positive Comments"
               redirectRoute="positiveComments"
             />
           </div>
           <div className="flex md:flex-row flex-col gap-5 md:gap-0 w-full items-center text-center justify-evenly mt-5">
             <FlexMessages
-              messages={abusiveCommentsData}
               heading="View Abusive Comments"
               redirectRoute="abusiveComments"
             />
             <FlexMessages
-              messages={demandingCommentsData}
               heading="View Demanding Comments"
               redirectRoute="demandingComments"
             />

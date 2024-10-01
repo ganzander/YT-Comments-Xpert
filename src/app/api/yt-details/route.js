@@ -4,42 +4,32 @@ const sentiment = require("sentiment");
 const sentimentAnalyzer = new sentiment();
 const tokenizer = new natural.WordTokenizer();
 
-const isDemanding = (comment) => {
-  const demandingWords = ["want", "need", "please", "request", "expect"];
-  const tokens = tokenizer.tokenize(comment.toLowerCase());
-  return demandingWords.some((word) => tokens.includes(word));
-};
-
-const isAbusive = (comment) => {
-  const abusiveWords = ["hate", "stupid", "idiot", "dumb", "nonsense"];
-  const tokens = tokenizer.tokenize(comment.toLowerCase());
-  return abusiveWords.some((word) => tokens.includes(word));
-};
-
 function categorizeComments(comments) {
-  let categorizedComments = {
-    positiveComments: [],
-    negativeComments: [],
-    abusiveComments: [],
-    demandingComments: [],
+  const categories = {
+    positive: [],
+    negative: [],
+    abusive: [],
+    demanding: [],
   };
+  const demandingWords = ["want", "need", "please", "request", "expect"];
+  const abusiveWords = ["hate", "stupid", "idiot", "dumb", "nonsense"];
 
   comments.forEach((comment) => {
-    const analysis = sentimentAnalyzer.analyze(comment);
+    const analysis = sentimentAnalyzer.analyze(comment.text);
     const score = analysis.score;
+    const tokens = tokenizer.tokenize(comment.text.toLowerCase());
 
-    if (isAbusive(comment)) {
-      categorizedComments.abusiveComments.push(comment);
-    } else if (isDemanding(comment)) {
-      categorizedComments.demandingComments.push(comment);
+    if (abusiveWords.some((word) => tokens.includes(word))) {
+      categories.abusive.push(comment);
+    } else if (demandingWords.some((word) => tokens.includes(word))) {
+      categories.demanding.push(comment);
     } else if (score > 2) {
-      categorizedComments.positiveComments.push(comment);
+      categories.positive.push(comment);
     } else if (score < -2) {
-      categorizedComments.negativeComments.push(comment);
+      categories.negative.push(comment);
     }
   });
-
-  return categorizedComments;
+  return categories;
 }
 
 function extractVideoId(url) {
@@ -79,9 +69,10 @@ async function getComments(videoId, API_KEY) {
         pageToken: nextPageToken,
       },
     });
-    const currentComments = response.data.items.map(
-      (item) => item.snippet.topLevelComment.snippet.textOriginal
-    );
+    const currentComments = response.data.items.map((item) => ({
+      author: item.snippet.topLevelComment.snippet.authorDisplayName,
+      text: item.snippet.topLevelComment.snippet.textOriginal,
+    }));
     comments = comments.concat(currentComments);
     nextPageToken = response.data.nextPageToken;
   } while (nextPageToken);
@@ -99,24 +90,18 @@ export async function POST(req) {
 
     // Fetch Video Comments
     const comments = await getComments(videoId, API_KEY);
-    console.log(comments.length);
 
     // Fetch Sentiment Analysis
     const categorizedComments = categorizeComments(comments);
-    const {
-      positiveComments,
-      negativeComments,
-      abusiveComments,
-      demandingComments,
-    } = categorizedComments;
+    const { positive, negative, abusive, demanding } = categorizedComments;
 
     return Response.json({
       Success: true,
       videoDetails,
-      positiveComments,
-      negativeComments,
-      abusiveComments,
-      demandingComments,
+      positiveComments: positive,
+      negativeComments: negative,
+      abusiveComments: abusive,
+      demandingComments: demanding,
     });
   } catch (error) {
     console.error("Error fetching video details:", error);
