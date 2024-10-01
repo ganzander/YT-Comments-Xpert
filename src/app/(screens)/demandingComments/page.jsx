@@ -13,7 +13,7 @@ import {
 import { Spotlight } from "@/components/ui/Spotlight";
 import { cn } from "@/lib/utils";
 
-export default function page() {
+export default function Page() {
   const [demandingCommentsData, setDemandingCommentsData] = useState(null);
 
   useEffect(() => {

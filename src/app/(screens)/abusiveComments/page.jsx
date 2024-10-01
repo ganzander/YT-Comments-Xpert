@@ -14,7 +14,7 @@ import { Spotlight } from "@/components/ui/Spotlight";
 import { cn } from "@/lib/utils";
 import { IconH1 } from "@tabler/icons-react";
 
-export default function page() {
+export default function Page() {
   const [abusiveCommentsData, setAbusiveCommentsData] = useState([]);
 
   useEffect(() => {

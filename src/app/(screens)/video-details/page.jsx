@@ -7,7 +7,7 @@ import { IoEyeSharp } from "react-icons/io5";
 import { AiOutlineComment } from "react-icons/ai";
 import { useRouter } from "next/navigation";
 
-export default function VideoDetails() {
+export default function Page() {
   const [videoData, setVideoData] = useState(null);
 
   useEffect(() => {
