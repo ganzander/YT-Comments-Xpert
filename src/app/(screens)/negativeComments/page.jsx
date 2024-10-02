@@ -31,7 +31,7 @@ export default function Page() {
         className="-top-40 left-0 md:left-60 md:-top-20"
         fill="white"
       />
-      <div className="w-1/2 flex justify-center items-center mt-20 mb-20">
+      <div className="w-[95%] sm:w-[80%] lg:w-1/2 flex justify-center items-center mt-20 mb-20">
         {negativeCommentsData === null ? (
           <div className="w-full mt-4">
             <h2 className="uppercase font-bold text-3xl md:text-5xl text-center text-neutral-800 dark:text-neutral-200">

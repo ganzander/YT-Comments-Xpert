@@ -30,7 +30,7 @@ export default function Page() {
         className="-top-40 left-0 md:left-60 md:-top-20"
         fill="white"
       />
-      <div className="w-1/2 flex justify-center items-center mt-20 mb-20">
+      <div className="w-[95%] sm:w-[80%] lg:w-1/2 flex justify-center items-center mt-20 mb-20">
         {abusiveCommentsData.length > 0 ? (
           <Table>
             <TableHeader>
