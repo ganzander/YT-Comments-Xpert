@@ -22,6 +22,7 @@ export const MenuItem = ({ setActive, active, item, children }) => {
       >
         {item}
       </motion.p>
+
       {active !== null && (
         <motion.div
           initial={{ opacity: 0, scale: 0.85, y: 10 }}
