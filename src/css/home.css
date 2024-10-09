@@ -1,0 +1,9 @@
+
+@font-face {
+    font-family: 'AfacadFlux-Light';
+    src: url(/AfacadFlux-Light.ttf);
+  }
+
+  .home-font{
+    font-family:'AfacadFlux-Light' !important;
+}
