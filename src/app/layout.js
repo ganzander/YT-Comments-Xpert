@@ -27,14 +27,8 @@ export default function RootLayout({ children }) {
         {/* <NavbarDemo changeTheme={changeTheme} /> */}
 
         <div className=" home-wrapper h-screen w-full flex justify-center items-center bg-[#0E1322] relative overflow-hidden">
-          {/* <Spotlight
-        className="-top-40 left-0 md:left-60 md:-top-20"
-        fill="white"
-      /> */}
-
           <div className="home w-[90%] flex flex-col justify-center items-center h-full">
-            
-            {/* navbar ---------------------- */}
+            {/* ------------------ NAVBAR ---------------------- */}
             <div className="custom-navbar flex bg-[#] items-center justify-between w-full ">
               <div className="nav-left relative bg-[rgb(148,214,226)] rounded-tl-[40px]  rounded-tr-[40px] font-bold px-12 w-[23%] text-center text-[25px] py-6">
                 <button>CommentsIQ</button>
@@ -44,7 +38,7 @@ export default function RootLayout({ children }) {
               </div>
               <div className="nav-right text-white flex gap-8 pe-10">
                 <button className=" ">
-                <IconSun />
+                  <IconSun />
                 </button>
                 <div className=" ">Login</div>
               </div>
