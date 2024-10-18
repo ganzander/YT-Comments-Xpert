@@ -49,16 +49,16 @@ export default function Page() {
           </h2>
         </div>
       ) : (
-        <div className="w-full h-full flex flex-col items-center p-10 gap-4">
+        <div className="w-full h-full flex flex-col items-center vid-dt p-10 gap-4">
           <div className="video-top w-full flex flex-col gap-10 ps-2 font-semibold">
             {videoData.title}
           </div>
-          <div className="video-bottom flex w-full">
+          <div className="video-bottom flex w-full gap-10">
             <div className="video-desc w-[60%] items-center flex relative">
 
               <img className='rounded-2xl shadow-xl' src={videoData.thumbnail} alt="" />
 
-              <div className="text content absolute flex pb-2 ps-2 left-0 bottom-0 w-full items-center gap-4">
+              <div className="text vid-ct content absolute flex flex-wrap pb-2 ps-2 left-0 bottom-0 w-full items-center gap-4">
                 <div className="font-bold text-xl md:text-2xl text-gray-50 relative z-10 ">
                   {videoData.channelTitle}
                 </div>
@@ -76,7 +76,7 @@ export default function Page() {
                 </div>
               </div>
             </div>
-            <div className='flex flex-col gap-4 justify-evenly items-center w-[40%] h-full' >
+            <div className='flex comments flex-col gap-4 justify-evenly items-center w-[40%] h-full' >
               <FlexMessages
                 heading="View Negative Comments"
                 redirectRoute="negativeComments"
@@ -107,7 +107,7 @@ function FlexMessages({ redirectRoute, heading, className }) {
     <div className={"w-full shadow-lg " + className}>
       <button
         onClick={() => router.push(`/${redirectRoute}`)}
-        className=" tracking-tighter rounded-md text-[12px] sm:text-sm md:text-lg lg:text-xl w-full p-5 bg-white"
+        className=" tracking-tighter rounded-md text-[16px] sm:text-sm md:text-lg lg:text-xl w-full p-5 bg-white"
       >
         {heading}
       </button>
