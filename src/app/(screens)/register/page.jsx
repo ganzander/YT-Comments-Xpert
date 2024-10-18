@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
-import { Spotlight } from "@/components/ui/Spotlight";
 import Link from "next/link";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
@@ -50,11 +49,7 @@ export default function Page() {
     }
   }
   return (
-    <div className="h-screen w-full flex items-center justify-center bg-[#eee] dark:bg-black/[0.96] antialiased bg-grid-white/[0.02] relative overflow-hidden">
-      <Spotlight
-        className="-top-40 left-0 md:left-60 md:-top-20"
-        fill="white"
-      />
+    <div className="home-body relative w-full h-full flex justify-around items-center">
       <div className="max-w-md w-full mx-auto rounded-none md:rounded-2xl p-4 md:p-8 shadow-2xl bg-white dark:bg-black">
         <h2 className="uppercase font-bold text-xl text-center text-neutral-800 dark:text-neutral-200">
           Sign up
