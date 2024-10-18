@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils";
 import { Spotlight } from "@/components/ui/Spotlight";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
-import axios from "axios";
+import axios from "axios"
 
 export default function Page() {
   const router = useRouter();
@@ -122,10 +122,10 @@ export default function Page() {
         <div className="home-right">
           <img className="w-[30vw]" src="/images/utube.png" />
         </div>
-        <div className="w-[340px] h-12 bg-red-400 rounded-lg absolute border-2 border-black top-9 right-[-50px] rotate-12"></div>
-        <div className="w-[400px] h-12 bg-blue-400 rounded-lg absolute border-2 border-black top-12 rotate-[-15deg]  "></div>
-        <div className="w-[300px] h-12 bg-yellow-400 rounded-lg absolute border-2 border-black bottom-[50px] right-[30%] rotate-45"></div>
-        <div className="w-[400px] h-12 bg-green-400 rounded-lg absolute border-2 border-black bottom-10 left-[-200px] "></div>
+        <div className="w-[340px] rnd-box h-12 bg-red-400 rounded-lg absolute border-2 border-black top-9 right-[-50px] rotate-12"></div>
+        <div className="w-[400px] rnd-box h-12 bg-blue-400 rounded-lg absolute border-2 border-black top-12 rotate-[-15deg]  "></div>
+        <div className="w-[300px] rnd-box h-12 bg-yellow-400 rounded-lg absolute border-2 border-black bottom-[50px] right-[30%] rotate-45"></div>
+        <div className="w-[400px] rnd-box h-12 bg-green-400 rounded-lg absolute border-2 border-black bottom-10 left-[-200px] "></div>
       </div>
     </>
   );
