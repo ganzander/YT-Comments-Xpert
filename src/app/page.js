@@ -3,10 +3,9 @@ import React, { useState } from "react";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
-import { Spotlight } from "@/components/ui/Spotlight";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
-import axios from "axios"
+import axios from "axios";
 
 export default function Page() {
   const router = useRouter();
@@ -62,7 +61,7 @@ export default function Page() {
     <>
       <div className="home-body relative w-full h-full flex justify-around items-center">
         <div className=" home-left flex justify-center items-center bg-white p-10 rounded-[40px] w-[30vw] shadow-lg ">
-          <form className="my-8 w-full " onSubmit={handleSubmit}>
+          <form className="my-8 w-full" onSubmit={handleSubmit}>
             <LabelInputContainer className="mb-4 gap-4">
               <Label htmlFor="url" className="text-center !text-black">
                 Just paste the YouTube Video URL
@@ -76,12 +75,11 @@ export default function Page() {
                 type="text"
                 autoComplete="off"
                 required
-                className="!bg-[#dadada]"
               />
             </LabelInputContainer>
             <div className="w-full flex justify-center items-center mt-4">
               {isLoading ? (
-                <button className="relative group/btn flex bg-black text-white dark:from-zinc-900 dark:to-zinc-900 justify-center items-center dark:bg-zinc-800 w-1/2 dark:text-white rounded-md h-10 font-medium shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] dark:shadow-[0px_1px_0px_0px_var(--zinc-800)_inset,0px_-1px_0px_0px_var(--zinc-800)_inset]">
+                <button className="flex bg-[#0E1322] text-white justify-center items-center w-1/2 rounded-md h-10 font-medium shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset]">
                   <svg
                     aria-hidden="true"
                     role="status"
@@ -104,7 +102,7 @@ export default function Page() {
                 </button>
               ) : (
                 <button
-                  className="relative group/btn mt-4 !bg-[#dadada] text-white dark:from-zinc-900 dark:to-zinc-900 block dark:bg-zinc-800 w-1/2 dark:text-white rounded-md h-10 font-medium shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] dark:shadow-[0px_1px_0px_0px_var(--zinc-800)_inset,0px_-1px_0px_0px_var(--zinc-800)_inset]"
+                  className="mt-4 bg-[#0E1322] text-white block w-1/2 dark:text-white rounded-md h-10 font-medium shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset]"
                   type="submit"
                   onClick={() => {
                     if (url) {
