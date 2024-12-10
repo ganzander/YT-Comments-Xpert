@@ -6,6 +6,7 @@ import { cn } from "@/lib/utils";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import axios from "axios";
+import Link from "next/link";
 
 export default function Page() {
   const router = useRouter();
@@ -60,7 +61,7 @@ export default function Page() {
   return (
     <>
       <div className="home-body relative w-full h-full flex justify-around items-center">
-        <div className=" home-left flex justify-center items-center bg-white p-10 rounded-[40px] w-[30vw] shadow-lg ">
+        <div className=" home-left flex flex-col justify-center items-center bg-white p-10 rounded-[40px] w-[30vw] shadow-lg ">
           <form className="my-8 w-full" onSubmit={handleSubmit}>
             <LabelInputContainer className="mb-4 gap-4">
               <Label htmlFor="url" className="text-center !text-black">
@@ -77,6 +78,7 @@ export default function Page() {
                 required
               />
             </LabelInputContainer>
+
             <div className="w-full flex justify-center items-center mt-4">
               {isLoading ? (
                 <button className="flex bg-[#0E1322] text-white justify-center items-center w-1/2 rounded-md h-10 font-medium shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset]">
@@ -116,14 +118,24 @@ export default function Page() {
               )}
             </div>
           </form>
+          <button className="flex bg-[#0c1148] text-white justify-center items-center w-[90%] rounded-md h-10 font-medium shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset]">
+            <Link
+              href="https://captionizer-star.vercel.app/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Got To Captionizer &rarr;
+            </Link>
+            <BottomGradient />
+          </button>
         </div>
         <div className="home-right">
           <img className="w-[30vw]" src="/images/utube.png" />
         </div>
         <div className="w-[340px] rnd-box h-12 bg-red-400 rounded-lg absolute border-2 border-black top-9 right-[-50px] rotate-12"></div>
-        <div className="w-[400px] rnd-box h-12 bg-blue-400 rounded-lg absolute border-2 border-black top-12 rotate-[-15deg]  "></div>
+        <div className="w-[400px] rnd-box h-12 bg-blue-400 rounded-lg absolute border-2 border-black top-12 rotate-[-15deg]"></div>
         <div className="w-[300px] rnd-box h-12 bg-yellow-400 rounded-lg absolute border-2 border-black bottom-[50px] right-[30%] rotate-45"></div>
-        <div className="w-[400px] rnd-box h-12 bg-green-400 rounded-lg absolute border-2 border-black bottom-10 left-[-200px] "></div>
+        <div className="w-[400px] rnd-box h-12 bg-green-400 rounded-lg absolute border-2 border-black bottom-10 left-[-200px]"></div>
       </div>
     </>
   );
