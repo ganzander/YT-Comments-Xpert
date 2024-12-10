@@ -124,7 +124,7 @@ export default function Page() {
               target="_blank"
               rel="noopener noreferrer"
             >
-              Got To Captionizer &rarr;
+              Go To Captionizer &rarr;
             </Link>
             <BottomGradient />
           </button>
