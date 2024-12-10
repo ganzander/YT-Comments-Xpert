@@ -1,13 +1,9 @@
-"use client";
 import "./globals.css";
 import { Toaster } from "react-hot-toast";
-import NavbarDemo from "@/components/Navbar";
-import { useState } from "react";
-import { IconSun } from "@tabler/icons-react";
 import "@/css/responsive.css";
 import Navbar from "@/components/Navbar";
 
-const metadata = {
+export const metadata = {
   title: "YT Comment Xpert",
   description: "Developed by Ganesh Mangla",
 };
